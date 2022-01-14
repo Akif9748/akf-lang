@@ -16,7 +16,7 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
 
     for (const line of lines) {
 
-        let args = line.split(" ");
+        var args = line.split(" ");
 
         if (args[0] == "var") {
             if (args[1]) {
@@ -35,7 +35,7 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
                             return error(lines.indexOf(line) + 1, 4, "Variable value is not a number");
 
                         } else {
-                            variables[varName] = { value: args.join(" ").replace(/"/g,""), type: "str" };
+                            variables[varName] = { value: args.join(" ").replace(/"/g, ""), type: "str" };
 
                         }
                     }
@@ -53,8 +53,14 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
 
                     try {
                         args.shift(); args.shift(); args.shift();
-
-                        const resp = math.evaluate(args.join(" "));
+                        var calc = args.join(" ")
+                        for (const variable in variables) {
+                            if (calc.includes(variable)) {
+                                var calc = calc.replace(new RegExp(variable, "g"), variables[variable].value)
+                            }
+                        }
+              
+                        const resp = math.evaluate(calc);
                         if (!Number(resp)) throw "Result is not number";
                         variables[varName] = { value: resp, type: "num" };
 
@@ -85,7 +91,7 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
 
                         }
                     } else {
-                        process.stdout.write(args.join(" ").replace(/"/g,""));
+                        process.stdout.write(args.join(" ").replace(/"/g, ""));
                     }
                 } else {
                     process.stdout.write(Number(args[0]).toString());
@@ -110,7 +116,7 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
 
                         }
                     } else {
-                        console.log(args.join(" ").replace(/"/g,""));
+                        console.log(args.join(" ").replace(/"/g, ""));
                     }
                 } else {
                     console.log(Number(args[0]));
@@ -121,7 +127,7 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
                 error(lines.indexOf(line) + 1, 2, "What can i write to console?");
             }
         }
-    } 
+    }
 
 
 
