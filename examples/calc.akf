@@ -1,7 +1,10 @@
 var cumhuriyet = "When was Türkiye founded?"
-
+var now = 2022
+var founded = 1923
 //Calculate:
-math result = 2022 - 1923
+
+
+math result = now - founded
 //Write:
 write cumhuriyet
 writeAdd result
