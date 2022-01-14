@@ -8,5 +8,10 @@ A very basic language.
 
 ## Functions:
 - write
+- writeAdd
 - math
 - var
+
+You can use math with variables (Beta. Buggy.)
+
+You can write variable.
