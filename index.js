@@ -35,7 +35,7 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
                             return error(lines.indexOf(line) + 1, 4, "Variable value is not a number");
 
                         } else {
-                            variables[varName] = { value: args.join(" "), type: "str" };
+                            variables[varName] = { value: args.join(" ").replace(/"/g,""), type: "str" };
 
                         }
                     }
@@ -70,6 +70,31 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
                 return error(lines.indexOf(line) + 1, 2, "Variable name is not defined");
             }
 
+        } else if (args[0] === "writeAdd") {
+
+            if (args[1]) {
+                args.shift();
+
+                if (!Number(args[0])) {
+                    //IS NOT STRING:
+                    if (!isString(args.join(" "))) {
+                        if (args[0] in variables === false) {
+                            return error(lines.indexOf(line) + 1, 2, args[0] + " is not defined.");
+                        } else {//WITH TYPE
+                            process.stdout.write(variables[args[0]].value.toString());
+
+                        }
+                    } else {
+                        process.stdout.write(args.join(" ").replace(/"/g,""));
+                    }
+                } else {
+                    process.stdout.write(Number(args[0]).toString());
+                }
+
+
+            } else {
+                error(lines.indexOf(line) + 1, 2, "What can ı write to console?");
+            }
         } else if (args[0] === "write") {
 
             if (args[1]) {
@@ -77,7 +102,7 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
 
                 if (!Number(args[0])) {
                     //IS NOT STRING:
-                    if (!isString(args[0])) {
+                    if (!isString(args.join(" "))) {
                         if (args[0] in variables === false) {
                             return error(lines.indexOf(line) + 1, 2, args[0] + " is not defined.");
                         } else {//WITH TYPE
@@ -85,7 +110,7 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
 
                         }
                     } else {
-                        console.log(args.join(" "));
+                        console.log(args.join(" ").replace(/"/g,""));
                     }
                 } else {
                     console.log(Number(args[0]));
@@ -93,10 +118,10 @@ fs.readFile(file, 'utf8', function (err, fileContent) {
 
 
             } else {
-                error(lines.indexOf(line) + 1, 2, "What can ı write to console?");
+                error(lines.indexOf(line) + 1, 2, "What can i write to console?");
             }
         }
-    }
+    } 
 
 
 
