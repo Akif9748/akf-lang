@@ -1,0 +1,4 @@
+//Define text as "Hello, world!"
+var text = "Hello, world!"
+//write to console the text variable.
+write text
