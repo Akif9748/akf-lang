@@ -1,5 +1,32 @@
 //Writed by Akif9748 for Blaziken
 
-write "******\nDİKDÖRTKEN\nÇEVRESİ\nHESAPLAYAN\n2000\n******\n"
+writeln "******"
+writeln "DİKDÖRTKEN"
+writeln "       ÇEVRESİ"
+writeln "               HESAPLAYAN"
+writeln "                       2000"
+writeln "                               ******"
+writeln ""
 
-//Input, and etc. Will add.
+var uzun = 10
+var kisa = 9
+
+write uzun
+write " ve "
+write kisa
+
+write " kenar uzunluklu dörtgeninizin çevresi: "
+
+multi cevre = (uzun,kisa)
+
+writeln cevre
+
+writeln ""
+
+writeln "******"
+writeln "DİKDÖRTKEN"
+writeln "       ÇEVRESİNİ"
+writeln "               BULDUM KE"
+writeln "                       2000"
+writeln "                               ******"
+
