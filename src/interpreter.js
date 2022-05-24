@@ -8,8 +8,8 @@ const variables = { "PI": { value: 3.14, type: "num" } };
  * @param {String} data Data input in Akf-lang standarts.
  * @returns {void} Running.
  */
-function main(data) {
-    const lines = data.split("\n");
+async function main(data) {
+    const lines = data.split(/\r?\n/g);
     let index = 1;
     for (const line of lines) {
 
@@ -30,8 +30,20 @@ function main(data) {
                 error(index, 2, "File name is not defined");
 
 
-        }
-        if (args[0] === "var") {
+        } else if (args[0] === "input") {
+            if (args[1]) {
+
+
+                const reply = await require('./readline');
+                const tip = Number(reply) || reply;
+                variables[args[1]] = { value: tip, type: typeof tip === "number" ? "num" : "str" };
+            }
+            else
+                error(index, 2, "Variable name is not defined");
+
+
+
+        } else if (args[0] === "var") {
             if (args[1]) {
                 if (args[2]) {
                     if (args[3]) {
@@ -64,7 +76,6 @@ function main(data) {
                 error(index, 2, "What can i write to console?");
 
         } else if (args[0] === "writeln") {
-
             if (args[1]) {
 
                 const tip = type(args.slice(1).join(" "));

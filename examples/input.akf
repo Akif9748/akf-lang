@@ -1,0 +1,6 @@
+write "What is your name? "
+
+input name
+write "Your name is "
+write name
+

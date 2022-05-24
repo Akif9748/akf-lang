@@ -7,6 +7,7 @@ A very basic language.
 ## Functions:
 - write
 - writeln
+- input
 - take (Run other akf file (beta))
 - var
 - multi

@@ -5,12 +5,12 @@ if (!file.endsWith(".akf")) return console.error("Only works with *.akf files");
 
 const interpreter = require("./src/interpreter");
 
-fs.readFile(file, 'utf8', function (err, fileContent) {
+fs.readFile(file, 'utf8', (err, content)=> {
 
     if (err) return console.error("Cant read file", "Set file name correctly.");
 
-    if (!fileContent) return;
+    if (!content) return;
     //Better reading for interpreter:
-    interpreter(fileContent.replace(/\r/g, ""))
+    interpreter(content)
 
 });
